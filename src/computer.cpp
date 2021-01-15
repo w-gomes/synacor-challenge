@@ -202,13 +202,11 @@ auto Computer::read_file(const char *file) -> void {
   fopen_s(&in, file, "rb");
 
   if (in) {
-    fread(this->memory_.data(),
-          sizeof(tl::u16),
-          std::numeric_limits<tl::u16>::max(),
-          in);
+    fread(this->memory_.data(), sizeof(tl::u16), this->memory_.size(), in);
   } else {
     fmt::print(stderr, "{} {}\n", "cannot open file", file);
   }
+  fclose(in);
 }
 
 auto Computer::reg_index(tl::u16 value) const -> tl::usize {
