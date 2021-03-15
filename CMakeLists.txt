@@ -9,6 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # add installed libraries
 find_package(fmt REQUIRED)
+find_package(range-v3)
 
 # Link this 'library' to set the c++ standard / compile-time options requested
 add_library(project_options INTERFACE)
@@ -34,8 +35,17 @@ add_executable(synacor src/main.cpp
                        src/computer.cpp
 )
 
+add_executable(puzzles src/puzzles.cpp)
+
 target_link_libraries(
-  synacor PRIVATE project_warnings 
+  synacor PRIVATE project_warnings
                   project_options
                   fmt::fmt-header-only
+)
+
+target_link_libraries(
+  puzzles PRIVATE project_warnings
+                  project_options
+                  fmt::fmt-header-only
+                  range-v3::range-v3
 )
